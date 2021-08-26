@@ -126,6 +126,15 @@ fn handleKey(listener: *wl.Listener(*wlr.Keyboard.event.Key), event: *wlr.Keyboa
         wlr_seat.setKeyboard(self.input_device);
         wlr_seat.keyboardNotifyKey(event.time_msec, event.keycode, event.state);
     }
+
+    // if (!handled) {
+    //     const keyboard_grab = self.getInputMethodGrab();
+    //     if (keyboard_grab) |kb| {
+    //         kb.setKeyboard(kb.keyboard);
+    //         kb.sendKey(event.time_msec, event.keycode, event.state);
+    //         handled = true;
+    //     }
+    // }
 }
 
 /// Simply pass modifiers along to the client
@@ -164,3 +173,19 @@ fn handleBuiltinMapping(self: Self, keysym: xkb.Keysym) bool {
         else => return false,
     }
 }
+
+// fn getInputMethodGrab(self: Self) ?*wlr.InputMethodV2.KeyboardGrab {
+//     const input_method = &self.seat.relay.input_method;
+//     const virtual_keyboard = self.input_device.getVirtualKeyboard();
+
+//     if (input_method.*) |input| return &input.keyboard_grab;
+
+//     if (input_method.* == null or
+//         virtual_keyboard.?.resource.getClient() == input_method.*.?.keyboard_grab.resource.getClient())
+//     {
+//         return null;
+//     }
+
+//     return null;
+
+// }
